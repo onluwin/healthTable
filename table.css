@@ -1,0 +1,80 @@
+table {
+  margin-top: 50px;
+  border-collapse: collapse;
+  font-weight: 600;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+table th,
+table td {
+  padding: 10px;
+  border: 1px solid #2a2a2a;
+  font-size: 16px;
+}
+table th {
+  font-size: 21px;
+}
+body {
+  height: 100ch;
+
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    356deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 39, 121, 1) 25%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+textarea {
+  height: 150px;
+
+  resize: none;
+}
+input {
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+}
+textarea {
+  width: 185px;
+  height: 40px;
+  resize: none;
+  border: none;
+  border-radius: 20px;
+}
+button {
+  background-color: rgb(0, 119, 255);
+  border: 1px solid rgb(0, 19, 36);
+  border-radius: 20px;
+  color: #fff;
+
+  width: 185px;
+  height: 40px;
+  margin-top: 16px;
+}
+
+form {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.form-container {
+  width: 200px;
+}
+.red {
+  color: red;
+}
+.green {
+  color: rgb(0, 255, 0);
+}
+.comment {
+  max-width: 500px;
+  word-wrap: break-word;
+}
