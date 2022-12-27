@@ -1,5 +1,7 @@
 const refs = {
     form: document.querySelector('form'),
+    date: document.querySelector('input[name="date"]'),
+    time: document.querySelector('input[name="time"]'),
     highPressure: document.querySelector('input[name="highPressure"]'),
     bottomPressure: document.querySelector('input[name="bottomPressure"]'),
     pulse: document.querySelector('input[name="pulse"]'),
@@ -23,12 +25,12 @@ function onFormSubmit(e) {
     const { name, value } = e.target;
     formData[name] = value;
     let formDataValues = Object.fromEntries(formData.entries())
-    const currentDate = new Date();
-    const date = currentDate.toLocaleString().slice(0, 10);
-    const currentTime = currentDate.toLocaleString().slice(11, 20);
+    // const currentDate = new Date();
+    // const date = currentDate.toLocaleString().slice(0, 10);
+    // const currentTime = currentDate.toLocaleString().slice(11, 20);
     
-    formDataValues.time = currentTime;
-    formDataValues.date = date;
+    // formDataValues.time = currentTime;
+    // formDataValues.date = date;
     let stringifyFormData = JSON.stringify(formDataValues)
     try {
 
@@ -58,7 +60,7 @@ function onFormSubmit(e) {
 
 function renderTable(data) {
     if (!data) return
-    
+    console.log(data);
 
     const { date, time, highPressure, bottomPressure, pulse, weight, comment, } = data;
 
