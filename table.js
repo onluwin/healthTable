@@ -17,11 +17,6 @@ initPage();
 function onFormSubmit(e) {
     e.preventDefault();
 
-    // if (highPressure.value === '' || bottomPressure.value === '') {
-    //     alert('все поля должны быть заполнены.')
-    //     return;
-    // }
-
     let formData = new FormData(e.currentTarget)
     const { name, value } = e.target;
     formData[name] = value;
@@ -29,7 +24,7 @@ function onFormSubmit(e) {
 
     const currentDate = new Date();
     const date = currentDate.toLocaleString().slice(0, 10);
-    const currentTime = currentDate.toLocaleString().slice(11, 20);
+    const currentTime = currentDate.toLocaleString().slice(11, 17);
     formDataValues.time = currentTime;
     formDataValues.date = date;
     
