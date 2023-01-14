@@ -9,13 +9,18 @@ const refs = {
     comment: document.querySelector('input[name="comment"]'),
     submitBtn: document.querySelector('form > button[type="submit"]'),
 }
-const { form, date, time, highPressure,bottomPressure, weight, comment, submitBtn,} = refs;
+const { form, date, time, highPressure,bottomPressure,pulse, weight, comment, submitBtn,} = refs;
 const LOCAL_STORAGE_DATA_KEY = 'formData-key';
 
 initPage();
 
 function onFormSubmit(e) {
     e.preventDefault();
+    
+    // if (highPressureRef.value === '' && bottomPressureRef.value === '' && pulseRef.value === '' && weight.value === '' && comment.value === '') {
+    //     alert('Поля не должны быть пустыми!')
+    //     return;
+    // }
 
     let formData = new FormData(e.currentTarget)
     const { name, value } = e.target;
@@ -31,7 +36,7 @@ function onFormSubmit(e) {
     let stringifyFormData = JSON.stringify(formDataValues)
     try {
 
-        const dataLocalStorage = getData();
+        const dataLocalStorage = getDataFromStorage();
         dataLocalStorage.push(JSON.parse(stringifyFormData));
         localStorage.setItem(LOCAL_STORAGE_DATA_KEY, JSON.stringify(dataLocalStorage))
 
@@ -42,15 +47,15 @@ function onFormSubmit(e) {
     let parseData = JSON.parse(saveData)
     const table = document.querySelector('tbody');
 
-    table.insertAdjacentHTML('afterend', renderTable(formDataValues))
+    addMarkup(table, renderTable(formDataValues))
 
     const highPressureRef = document.querySelectorAll('.highPressure');
     const bottomPressureRef = document.querySelectorAll('.bottomPressure');
     const pulseRef = document.querySelectorAll('.pulse');
 
-    checkPressure(highPressureRef)
-    checkPressure(bottomPressureRef)
-    checkPulse(pulseRef)
+    validatePressure(highPressureRef)
+    validatePressure(bottomPressureRef)
+    validatePulse(pulseRef)
     form.reset()
 
 }
@@ -73,38 +78,41 @@ function renderTable(data) {
     
     return markup;
 }
+function addMarkup (element, markup) {
+    element.insertAdjacentHTML('afterend', markup)
+}
 
-function getData() {
+function getDataFromStorage() {
   const data = localStorage.getItem(LOCAL_STORAGE_DATA_KEY);
   return data ? JSON.parse(data) : [];
 }
-
 function saveData(data) {
-    const dataLocalStorage = getData();
-    console.log(data);
+    const dataLocalStorage = getDataFromStorage();
+    // console.log(data);
     dataLocalStorage.push(data);
     localStorage.setItem(LOCAL_STORAGE_DATA_KEY, dataLocalStorage)
 }
 
 function initPage() {
-    const data = getData();
+    const data = getDataFromStorage();
 
     data.forEach((element,) => {
 
         const markup = renderTable(element)
         const table = document.querySelector('tbody');
-        table.insertAdjacentHTML("afterend", markup)
+        addMarkup(table, markup)
     })
     
     const highPressureRef = document.querySelectorAll('.highPressure');
     const bottomPressureRef = document.querySelectorAll('.bottomPressure');
     const pulseRef = document.querySelectorAll('.pulse');
 
-    checkPressure(highPressureRef)
-    checkPressure(bottomPressureRef)
-    checkPulse(pulseRef)
+    validatePressure(highPressureRef)
+    validatePressure(bottomPressureRef)
+    validatePulse(pulseRef)
 }
-function checkPressure(pressure) {
+
+function validatePressure(pressure) {
     
     pressure.forEach(item => {
         // console.log(item);
@@ -116,11 +124,12 @@ function checkPressure(pressure) {
         }
     })
 }
-function checkPulse (pulse) {
+function validatePulse (pulse) {
     pulse.forEach(item => {
         if (Number(item.textContent) > 80) {
             item.classList.add('red')
         } else item.classList.add('green')
     })
 }
+
 form.addEventListener('submit', onFormSubmit);
